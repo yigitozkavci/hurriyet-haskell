@@ -24,6 +24,13 @@ library
   hs-source-dirs:   lib
   default-language: Haskell2010
 
+executable app
+ main-is:           App.hs
+ hs-source-dirs:    src
+ build-depends:     base >=4.5 && <4.8,
+                    hurriyet
+ default-language:  Haskell2010
+
 test-suite tests
   ghc-options:        -Wall
   default-extensions: OverloadedStrings
