@@ -1,4 +1,4 @@
 import Hurriyet
 
 main =
-  getPaths >>= print
+  getWriters >>= print

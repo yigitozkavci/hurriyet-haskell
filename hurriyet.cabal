@@ -23,7 +23,8 @@ library
                     Page,
                     NewsPhotoGallery,
                     Column,
-                    Path
+                    Path,
+                    Writer
   hs-source-dirs:   lib
   default-language: Haskell2010
 

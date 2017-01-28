@@ -10,6 +10,7 @@ import Page
 import NewsPhotoGallery
 import Column
 import Path
+import Writer
 import Data.Aeson (decode)
 
 apiKey :: I.ByteString
@@ -25,6 +26,7 @@ data Resource = ArticleResource
               | NewsPhotoGalleryResource
               | ColumnResource
               | PathResource
+              | WriterResource
 
 instance Show Resource where
   show ArticleResource          = "articles"
@@ -32,6 +34,7 @@ instance Show Resource where
   show NewsPhotoGalleryResource = "newsphotogalleries"
   show ColumnResource           = "columns"
   show PathResource             = "paths"
+  show WriterResource           = "writers"
 
 baseUrl :: String
 baseUrl =
@@ -74,6 +77,7 @@ getPaths =
   fetchResource PathResource >>= \str ->
     return $ decode str
 
-debugPrint :: IO ()
-debugPrint =
-  getPages >>= print
+getWriters :: IO (Maybe [Writer])
+getWriters =
+  fetchResource WriterResource >>= \str ->
+    return $ decode str
