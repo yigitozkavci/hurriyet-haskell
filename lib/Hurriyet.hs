@@ -7,6 +7,7 @@ import Data.ByteString.Lazy as L
 import Data.ByteString.Internal as I
 import Article
 import Page
+import NewsPhotoGallery
 import Data.Aeson (decode)
 
 apiKey :: I.ByteString
@@ -17,10 +18,14 @@ articlesUrl :: String
 articlesUrl =
   "https://api.hurriyet.com.tr/v1/articles"
 
-data Resource = ArticleResource | PageResource
+data Resource = ArticleResource
+              | PageResource
+              | NewsPhotoGalleryResource
+
 instance Show Resource where
   show ArticleResource = "articles"
   show PageResource = "pages"
+  show NewsPhotoGalleryResource = "newsphotogalleries"
 
 baseUrl :: String
 baseUrl =
@@ -42,7 +47,11 @@ getPages :: IO (Maybe [Page])
 getPages =
   fetchResource PageResource >>= \str ->
     return $ decode str
-    -- return $ decode str
+
+getNewsPhotoGalleries :: IO (Maybe [NewsPhotoGallery])
+getNewsPhotoGalleries =
+  fetchResource NewsPhotoGalleryResource >>= \str ->
+    return $ decode str
 
 getArticles :: IO (Maybe [Article])
 getArticles =

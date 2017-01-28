@@ -1,4 +1,4 @@
 import Hurriyet
 
 main =
-  getArticles >>= print
+  getNewsPhotoGalleries >>= print
