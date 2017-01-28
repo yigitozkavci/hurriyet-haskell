@@ -8,6 +8,8 @@ import Data.ByteString.Internal as I
 import Article
 import Page
 import NewsPhotoGallery
+import Column
+import Path
 import Data.Aeson (decode)
 
 apiKey :: I.ByteString
@@ -21,11 +23,15 @@ articlesUrl =
 data Resource = ArticleResource
               | PageResource
               | NewsPhotoGalleryResource
+              | ColumnResource
+              | PathResource
 
 instance Show Resource where
-  show ArticleResource = "articles"
-  show PageResource = "pages"
+  show ArticleResource          = "articles"
+  show PageResource             = "pages"
   show NewsPhotoGalleryResource = "newsphotogalleries"
+  show ColumnResource           = "columns"
+  show PathResource             = "paths"
 
 baseUrl :: String
 baseUrl =
@@ -56,6 +62,16 @@ getNewsPhotoGalleries =
 getArticles :: IO (Maybe [Article])
 getArticles =
   fetchResource ArticleResource >>= \str ->
+    return $ decode str
+
+getColumns :: IO (Maybe [Column])
+getColumns =
+  fetchResource ColumnResource >>= \str ->
+    return $ decode str
+
+getPaths :: IO (Maybe [Path])
+getPaths =
+  fetchResource PathResource >>= \str ->
     return $ decode str
 
 debugPrint :: IO ()

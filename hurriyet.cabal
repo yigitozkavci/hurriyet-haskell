@@ -20,8 +20,10 @@ library
                     text
   exposed-modules:  Hurriyet,
                     Article,
-                    Page
-                    NewsPhotoGallery
+                    Page,
+                    NewsPhotoGallery,
+                    Column,
+                    Path
   hs-source-dirs:   lib
   default-language: Haskell2010
 
