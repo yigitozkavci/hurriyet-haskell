@@ -1,39 +1,38 @@
 {-# LANGUAGE OverloadedStrings, DeriveGeneric, RecordWildCards #-}
 
-module Article where
+module Hurriyet.Services.Column where
 
 import Data.Aeson
 import GHC.Generics
-import File
+import Hurriyet.Services.File
 
-data Article = Article
+data Column = Column
   { _id          :: String
+  , fullName     :: String
   , contentType  :: String
   , createdDate  :: String
   , description  :: String
-  {- Hurriyet API does not include modifiedDate in their `show` response for articles yet.
-     Tracking issue: https://github.com/hurriyet/developers.hurriyet.com.tr/issues/27
-  -}
-  -- , modifiedDate :: String
-  , path         :: String
   , files        :: [File]
+  , path         :: String
   , startDate    :: String
   , title        :: String
   , url          :: String
+  , writerId     :: String
   } deriving (Generic, Show)
 
-instance FromJSON Article where
-  parseJSON = withObject "article" $ \o -> do
+instance FromJSON Column where
+  parseJSON = withObject "column" $ \o -> do
     _id          <- o .: "Id"
+    fullName     <- o .: "Fullname"
     contentType  <- o .: "ContentType"
     createdDate  <- o .: "CreatedDate"
     description  <- o .: "Description"
     files        <- o .: "Files"
-    -- modifiedDate <- o .: "ModifiedDate"
     path         <- o .: "Path"
     startDate    <- o .: "StartDate"
     title        <- o .: "Title"
     url          <- o .: "Url"
-    return Article {..}
+    writerId     <- o .: "WriterId"
+    return Column {..}
 
-instance ToJSON Article
+instance ToJSON Column

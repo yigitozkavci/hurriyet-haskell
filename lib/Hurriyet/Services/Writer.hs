@@ -1,10 +1,10 @@
 {-# LANGUAGE OverloadedStrings, DeriveGeneric, RecordWildCards #-}
 
-module Writer where
+module Hurriyet.Services.Writer where
 
 import Data.Aeson
 import GHC.Generics
-import File
+import Hurriyet.Services.File
 
 data Writer = Writer
   { _id         :: String

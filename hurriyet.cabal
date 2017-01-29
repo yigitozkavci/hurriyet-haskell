@@ -19,13 +19,14 @@ library
                     http-client-tls,
                     text
   exposed-modules:  Hurriyet,
-                    Article,
-                    Page,
-                    NewsPhotoGallery,
-                    Column,
-                    Path,
-                    Writer,
-                    File
+                    Hurriyet.Services,
+                    Hurriyet.Services.Article,
+                    Hurriyet.Services.Page,
+                    Hurriyet.Services.NewsPhotoGallery,
+                    Hurriyet.Services.Column,
+                    Hurriyet.Services.Path,
+                    Hurriyet.Services.Writer,
+                    Hurriyet.Services.File
   hs-source-dirs:   lib
   default-language: Haskell2010
 

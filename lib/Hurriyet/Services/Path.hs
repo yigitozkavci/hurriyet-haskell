@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings, DeriveGeneric, RecordWildCards #-}
 
-module Path where
+module Hurriyet.Services.Path where
 
 import Data.Aeson
 import GHC.Generics

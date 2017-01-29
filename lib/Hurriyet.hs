@@ -5,12 +5,7 @@ import Network.HTTP.Client.TLS
 import Data.Text (Text)
 import Data.ByteString.Lazy as L
 import Data.ByteString.Internal as I
-import Article
-import Page
-import NewsPhotoGallery
-import Column
-import Path
-import Writer
+import Hurriyet.Services
 import Data.Aeson (decode, eitherDecode)
 
 apiKey :: I.ByteString

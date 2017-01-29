@@ -1,10 +1,10 @@
 {-# LANGUAGE OverloadedStrings, DeriveGeneric, RecordWildCards #-}
 
-module NewsPhotoGallery where
+module Hurriyet.Services.NewsPhotoGallery where
 
 import Data.Aeson
 import GHC.Generics
-import File
+import Hurriyet.Services.File
 
 data NewsPhotoGallery = NewsPhotoGallery
   { _id          :: String
