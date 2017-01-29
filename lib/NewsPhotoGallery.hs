@@ -4,6 +4,7 @@ module NewsPhotoGallery where
 
 import Data.Aeson
 import GHC.Generics
+import File
 
 {- TODO: Add files -}
 data NewsPhotoGallery = NewsPhotoGallery

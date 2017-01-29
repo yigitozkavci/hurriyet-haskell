@@ -2,7 +2,6 @@
 module Page where
   import Data.Aeson
   import GHC.Generics
-  import Data.ByteString.Lazy (ByteString, pack)
 
   {- TODO: Add relatedNews -}
   data Page = Page
