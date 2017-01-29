@@ -19,4 +19,3 @@ instance FromJSON Path where
     return Path {..}
 
 instance ToJSON Path
-

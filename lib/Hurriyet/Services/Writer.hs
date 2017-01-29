@@ -28,5 +28,3 @@ instance FromJSON Writer where
     return Writer {..}
 
 instance ToJSON Writer
-
-
