@@ -18,15 +18,15 @@ instance FromJSON File where
 
 instance ToJSON File
 
-data Metadata = Metadata
+newtype Metadata = Metadata
   { title       :: String
-  , description :: String
+  -- , description :: String -- This field does not exist on article show page. Tracking issue: https://github.com/hurriyet/developers.hurriyet.com.tr/issues/28
   } deriving(Generic, Show)
 
 instance FromJSON Metadata where
   parseJSON = withObject "metadata" $ \o -> do
     title       <- o .: "Title"
-    description <- o .: "Description"
+    -- description <- o .: "Description"
     return Metadata{..}
 
 instance ToJSON Metadata
