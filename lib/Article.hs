@@ -11,7 +11,7 @@ data Article = Article
   , contentType  :: String
   , createdDate  :: String
   , description  :: String
-  , modifiedDate :: String
+  -- , modifiedDate :: String -- Hurriyet API does not include modifiedDate in their `show` response for articles yet.
   , path         :: String
   , startDate    :: String
   , title        :: String
@@ -24,7 +24,7 @@ instance FromJSON Article where
     contentType  <- o .: "ContentType"
     createdDate  <- o .: "CreatedDate"
     description  <- o .: "Description"
-    modifiedDate <- o .: "ModifiedDate"
+    -- modifiedDate <- o .: "ModifiedDate"
     path         <- o .: "Path"
     startDate    <- o .: "StartDate"
     title        <- o .: "Title"
