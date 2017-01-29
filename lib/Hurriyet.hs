@@ -47,10 +47,10 @@ baseUrl =
   "https://api.hurriyet.com.tr/v1/"
 
 getUrl :: Operation -> String
-getUrl (List resource) =
-  baseUrl ++ show resource
-getUrl (Show resource id) =
-  baseUrl ++ show resource ++ "/" ++ id
+getUrl operation =
+  case operation of
+    List resource    -> baseUrl ++ show resource
+    Show resource id -> baseUrl ++ show resource ++ "/" ++ id
 
 fetchResource :: Operation -> IO L.ByteString
 fetchResource operation = do
