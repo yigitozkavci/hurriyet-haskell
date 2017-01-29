@@ -8,13 +8,15 @@ import Data.ByteString.Internal as I
 import Hurriyet.Services
 import Data.Aeson (decode, eitherDecode)
 
+{- Planned usage:
+   defaultOptions :: Options
+   getClient :: I.ByteString -> Client
+   getArticles :: Client -> IO (Either String [Articles])
+-}
+
 apiKey :: I.ByteString
 apiKey =
   "9a9dcb9808624ac69e6c557a192afb33"
-
-articlesUrl :: String
-articlesUrl =
-  "https://api.hurriyet.com.tr/v1/articles"
 
 type Id = String
 
