@@ -17,3 +17,6 @@ main = do
     Left err -> print err
     Right (article:_) -> print . metadata . head $ files article
 ```
+
+# LICENSE
+[MIT License](LICENSE)
