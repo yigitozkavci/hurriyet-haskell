@@ -4,6 +4,7 @@ module Article where
 
 import Data.Aeson
 import GHC.Generics
+import Service
 
 {- TODO: Add files -}
 data Article = Article
@@ -31,5 +32,7 @@ instance FromJSON Article where
     url          <- o .: "Url"
     return Article {..}
 
+instance Service Article where
+  endpoint Article{..} = "articles"
 instance ToJSON Article
 

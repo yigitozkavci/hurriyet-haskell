@@ -11,6 +11,7 @@ import NewsPhotoGallery
 import Column
 import Path
 import Writer
+import Service
 import Data.Aeson (decode, eitherDecode)
 
 apiKey :: I.ByteString
