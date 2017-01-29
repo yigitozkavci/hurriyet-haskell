@@ -11,7 +11,7 @@ import NewsPhotoGallery
 import Column
 import Path
 import Writer
-import Data.Aeson (decode)
+import Data.Aeson (decode, eitherDecode)
 
 apiKey :: I.ByteString
 apiKey =
@@ -20,6 +20,8 @@ apiKey =
 articlesUrl :: String
 articlesUrl =
   "https://api.hurriyet.com.tr/v1/articles"
+
+type Id = String
 
 data Resource = ArticleResource
               | PageResource
@@ -36,48 +38,59 @@ instance Show Resource where
   show PathResource             = "paths"
   show WriterResource           = "writers"
 
+data Operation = List Resource
+               | Show Resource Id
+
 baseUrl :: String
 baseUrl =
   "https://api.hurriyet.com.tr/v1/"
 
-getUrl :: Resource -> String
-getUrl resource =
+getUrl :: Operation -> String
+getUrl (List resource) =
   baseUrl ++ show resource
+getUrl (Show resource id) =
+  baseUrl ++ show resource ++ "/" ++ id
 
-fetchResource :: Resource -> IO L.ByteString
-fetchResource resource = do
+fetchResource :: Operation -> IO L.ByteString
+fetchResource operation = do
   manager <- newManager tlsManagerSettings
-  initialRequest <- parseRequest $ getUrl resource
+  initialRequest <- parseRequest $ getUrl operation
   let request = initialRequest { method = "GET", requestHeaders = [("apikey", apiKey)] }
   response <- httpLbs request manager
   return $ responseBody response
 
-getPages :: IO (Maybe [Page])
+-- TODO: DRY these methods up
+getPages :: IO (Either String [Page])
 getPages =
-  fetchResource PageResource >>= \str ->
-    return $ decode str
+  fetchResource (List PageResource) >>= \str ->
+    return $ eitherDecode str
 
-getNewsPhotoGalleries :: IO (Maybe [NewsPhotoGallery])
+getNewsPhotoGalleries :: IO (Either String [NewsPhotoGallery])
 getNewsPhotoGalleries =
-  fetchResource NewsPhotoGalleryResource >>= \str ->
-    return $ decode str
+  fetchResource (List NewsPhotoGalleryResource) >>= \str ->
+    return $ eitherDecode str
 
-getArticles :: IO (Maybe [Article])
-getArticles =
-  fetchResource ArticleResource >>= \str ->
-    return $ decode str
-
-getColumns :: IO (Maybe [Column])
+getColumns :: IO (Either String [Column])
 getColumns =
-  fetchResource ColumnResource >>= \str ->
-    return $ decode str
+  fetchResource (List ColumnResource) >>= \str ->
+    return $ eitherDecode str
 
-getPaths :: IO (Maybe [Path])
+getPaths :: IO (Either String [Path])
 getPaths =
-  fetchResource PathResource >>= \str ->
-    return $ decode str
+  fetchResource (List PathResource) >>= \str ->
+    return $ eitherDecode str
 
-getWriters :: IO (Maybe [Writer])
+getWriters :: IO (Either String [Writer])
 getWriters =
-  fetchResource WriterResource >>= \str ->
-    return $ decode str
+  fetchResource (List WriterResource) >>= \str ->
+    return $ eitherDecode str
+
+getArticle :: Id -> IO (Either String Article)
+getArticle id =
+  fetchResource (Show ArticleResource id) >>= \str ->
+    return $ eitherDecode str
+
+getArticles :: IO (Either String [Article])
+getArticles =
+  fetchResource (List ArticleResource) >>= \str ->
+    return $ eitherDecode str
