@@ -59,10 +59,20 @@ fetchResource operation = do
   response <- httpLbs request manager
   return $ responseBody response
 
+getPage :: Id -> IO (Either String Page)
+getPage id =
+  fetchResource (Show PageResource id) >>= \str ->
+    return $ eitherDecode str
+
 -- TODO: DRY these methods up
 getPages :: IO (Either String [Page])
 getPages =
   fetchResource (List PageResource) >>= \str ->
+    return $ eitherDecode str
+
+getNewsPhotoGallery :: Id -> IO (Either String NewsPhotoGallery)
+getNewsPhotoGallery id =
+  fetchResource (Show NewsPhotoGalleryResource id) >>= \str ->
     return $ eitherDecode str
 
 getNewsPhotoGalleries :: IO (Either String [NewsPhotoGallery])
@@ -70,14 +80,29 @@ getNewsPhotoGalleries =
   fetchResource (List NewsPhotoGalleryResource) >>= \str ->
     return $ eitherDecode str
 
+getColumn :: Id -> IO (Either String Column)
+getColumn id =
+  fetchResource (Show ColumnResource id) >>= \str ->
+    return $ eitherDecode str
+
 getColumns :: IO (Either String [Column])
 getColumns =
   fetchResource (List ColumnResource) >>= \str ->
     return $ eitherDecode str
 
+getPath :: Id -> IO (Either String Path)
+getPath id =
+  fetchResource (Show PathResource id) >>= \str ->
+    return $ eitherDecode str
+
 getPaths :: IO (Either String [Path])
 getPaths =
   fetchResource (List PathResource) >>= \str ->
+    return $ eitherDecode str
+
+getWriter :: Id -> IO (Either String Writer)
+getWriter id =
+  fetchResource (Show WriterResource id) >>= \str ->
     return $ eitherDecode str
 
 getWriters :: IO (Either String [Writer])
