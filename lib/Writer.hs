@@ -4,6 +4,7 @@ module Writer where
 
 import Data.Aeson
 import GHC.Generics
+import File
 
 {- TODO: Add files -}
 data Writer = Writer
@@ -11,6 +12,7 @@ data Writer = Writer
   , fullName    :: String
   , contentType :: String
   , createdDate :: String
+  , files       :: [File]
   , path        :: String
   , url         :: String
   } deriving (Generic, Show)
@@ -21,6 +23,7 @@ instance FromJSON Writer where
     fullName    <- o .: "Fullname"
     contentType <- o .: "ContentType"
     createdDate <- o .: "CreatedDate"
+    files       <- o .: "Files"
     path        <- o .: "Path"
     url         <- o .: "Url"
     return Writer {..}

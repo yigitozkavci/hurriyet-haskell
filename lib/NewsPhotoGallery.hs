@@ -11,6 +11,7 @@ data NewsPhotoGallery = NewsPhotoGallery
   , contentType  :: String
   , createdDate  :: String
   , description  :: String
+  , files        :: [File]
   , modifiedDate :: String
   , path         :: String
   , startDate    :: String
@@ -24,6 +25,7 @@ instance FromJSON NewsPhotoGallery where
     contentType  <- o .: "ContentType"
     createdDate  <- o .: "CreatedDate"
     description  <- o .: "Description"
+    files        <- o .: "Files"
     modifiedDate <- o .: "ModifiedDate"
     path         <- o .: "Path"
     startDate    <- o .: "StartDate"

@@ -9,6 +9,7 @@ module Page where
     { _id :: String
     , createdDate :: String
     , title :: String
+    -- TODO: Check if pages have file field. If so, add it.
     , url :: String
     } deriving (Generic, Show)
 

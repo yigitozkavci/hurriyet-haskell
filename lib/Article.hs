@@ -4,7 +4,7 @@ module Article where
 
 import Data.Aeson
 import GHC.Generics
-import Service
+import File
 
 {- TODO: Add files -}
 data Article = Article
@@ -14,6 +14,7 @@ data Article = Article
   , description  :: String
   -- , modifiedDate :: String -- Hurriyet API does not include modifiedDate in their `show` response for articles yet.
   , path         :: String
+  , files        :: [File]
   , startDate    :: String
   , title        :: String
   , url          :: String
@@ -25,6 +26,7 @@ instance FromJSON Article where
     contentType  <- o .: "ContentType"
     createdDate  <- o .: "CreatedDate"
     description  <- o .: "Description"
+    files        <- o .: "Files"
     -- modifiedDate <- o .: "ModifiedDate"
     path         <- o .: "Path"
     startDate    <- o .: "StartDate"
@@ -32,7 +34,4 @@ instance FromJSON Article where
     url          <- o .: "Url"
     return Article {..}
 
-instance Service Article where
-  endpoint Article{..} = "articles"
 instance ToJSON Article
-

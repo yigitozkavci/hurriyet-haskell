@@ -4,6 +4,7 @@ module Column where
 
 import Data.Aeson
 import GHC.Generics
+import File
 
 {- TODO: Add files -}
 data Column = Column
@@ -12,6 +13,7 @@ data Column = Column
   , contentType  :: String
   , createdDate  :: String
   , description  :: String
+  , files        :: [File]
   , path         :: String
   , startDate    :: String
   , title        :: String
@@ -26,6 +28,7 @@ instance FromJSON Column where
     contentType  <- o .: "ContentType"
     createdDate  <- o .: "CreatedDate"
     description  <- o .: "Description"
+    files        <- o .: "Files"
     path         <- o .: "Path"
     startDate    <- o .: "StartDate"
     title        <- o .: "Title"

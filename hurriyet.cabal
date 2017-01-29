@@ -25,7 +25,6 @@ library
                     Column,
                     Path,
                     Writer
-                    Service
   hs-source-dirs:   lib
   default-language: Haskell2010
 
