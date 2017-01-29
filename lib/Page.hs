@@ -8,7 +8,9 @@ module Page where
     { _id :: String
     , createdDate :: String
     , title :: String
-    -- TODO: Check if pages have file field. If so, add it.
+    {- TODO: Check if pages have file field. If so, add it.
+       Currently pages endpoint does not respond.
+    -}
     , url :: String
     } deriving (Generic, Show)
 

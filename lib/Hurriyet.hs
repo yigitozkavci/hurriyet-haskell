@@ -64,7 +64,6 @@ getPage id =
   fetchResource (Show PageResource id) >>= \str ->
     return $ eitherDecode str
 
--- TODO: DRY these methods up
 getPages :: IO (Either String [Page])
 getPages =
   fetchResource (List PageResource) >>= \str ->

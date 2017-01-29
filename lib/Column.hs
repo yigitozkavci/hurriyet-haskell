@@ -6,7 +6,6 @@ import Data.Aeson
 import GHC.Generics
 import File
 
-{- TODO: Add files -}
 data Column = Column
   { _id          :: String
   , fullName     :: String

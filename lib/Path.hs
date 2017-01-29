@@ -5,7 +5,6 @@ module Path where
 import Data.Aeson
 import GHC.Generics
 
-{- TODO: Add files -}
 data Path = Path
   { _id          :: String
   , path         :: String

@@ -6,13 +6,15 @@ import Data.Aeson
 import GHC.Generics
 import File
 
-{- TODO: Add files -}
 data Article = Article
   { _id          :: String
   , contentType  :: String
   , createdDate  :: String
   , description  :: String
-  -- , modifiedDate :: String -- Hurriyet API does not include modifiedDate in their `show` response for articles yet.
+  {- Hurriyet API does not include modifiedDate in their `show` response for articles yet.
+     Tracking issue: https://github.com/hurriyet/developers.hurriyet.com.tr/issues/27
+  -}
+  -- , modifiedDate :: String
   , path         :: String
   , files        :: [File]
   , startDate    :: String
