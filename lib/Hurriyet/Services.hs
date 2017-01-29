@@ -2,6 +2,7 @@ module Hurriyet.Services
   ( Article
   , Column
   , File
+  , Metadata
   , NewsPhotoGallery
   , Page
   , Path
