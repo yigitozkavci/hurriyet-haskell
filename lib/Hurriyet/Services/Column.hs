@@ -17,7 +17,7 @@ data Column = Column
   , startDate    :: String
   , title        :: String
   , url          :: String
-  , writerId     :: String
+  , writerId     :: Maybe String
   } deriving (Generic, Show, Eq)
 
 instance FromJSON Column where
@@ -32,7 +32,7 @@ instance FromJSON Column where
     startDate    <- o .: "StartDate"
     title        <- o .: "Title"
     url          <- o .: "Url"
-    writerId     <- o .: "WriterId"
+    writerId     <- o .:? "WriterId"
     return Column {..}
 
 instance ToJSON Column
