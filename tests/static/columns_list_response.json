@@ -1,0 +1,47 @@
+[
+  {
+    "Id": "40492648",
+    "Fullname": "Ateş BAKAN",
+    "ContentType": "Column",
+    "CreatedDate": "2017-06-16T16:40:48.61Z",
+    "Description": "Konya, Aykut Kocaman’ı “Omuzlarda Uğurladı”...",
+    "Files": [],
+    "Path": "/spor/yazarlar/",
+    "StartDate": "2017-06-16T16:41:48.317Z",
+    "Title": "Hoş geldin “Kocaman Adam”",
+    "Url": "http://www.hurriyet.com.tr/yazarlar/ates-bakan/hos-geldin-kocaman-adam-40492648",
+    "WriterId": "55ea09f9f018fbaf44942579"
+  },
+  {
+    "Id": "40491947",
+    "Fullname": "Murat Güloğlu",
+    "ContentType": "Column",
+    "CreatedDate": "2017-06-16T08:34:16.871Z",
+    "Description": "Nihayet bohem-burjuva tayfanın bolca takıldığı Bozcaada sezonumu açmış bulunuyorum. Son derece mesudum. ",
+    "Files": [
+        {
+          "FileUrl": "http://i.hurimg.com/i/hurriyet/98/620x0/590b00fec03c0e3c0467c337.jpg",
+          "Metadata": {
+            "Title": ""
+          }
+        },
+        {
+          "FileUrl": "http://i.hurimg.com/i/hurriyet/98/620x0/590b00fec03c0e3c0467c339.jpg",
+          "Metadata": {
+            "Title": ""
+          }
+        },
+        {
+          "FileUrl": "http://i.hurimg.com/i/hurriyet/98/620x0/590b00fec03c0e3c0467c33b.jpg",
+          "Metadata": {
+            "Title": ""
+          }
+        }
+    ],
+    "Path": "/yazarlar/murat-guloglu/",
+    "StartDate": "2017-06-16T08:36:00Z",
+    "Title": "Gitme Yunan’a, gel Bozcaada’ya!",
+    "Url": "http://www.hurriyet.com.tr/yazarlar/murat-guloglu/gitme-yunana-gel-bozcaadaya-40491947",
+    "WriterId": "590b00e6c03c0e3c0467c335"
+  }
+]
