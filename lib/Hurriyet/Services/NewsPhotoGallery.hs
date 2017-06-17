@@ -17,7 +17,7 @@ data NewsPhotoGallery = NewsPhotoGallery
   , startDate    :: String
   , title        :: String
   , url          :: String
-  } deriving (Generic, Show)
+  } deriving (Generic, Show, Eq)
 
 instance FromJSON NewsPhotoGallery where
   parseJSON = withObject "news_photo_gallery" $ \o -> do

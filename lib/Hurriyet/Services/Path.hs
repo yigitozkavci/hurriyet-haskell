@@ -9,7 +9,7 @@ data Path = Path
   { _id          :: String
   , path         :: String
   , title        :: String
-  } deriving (Generic, Show)
+  } deriving (Generic, Show, Eq)
 
 instance FromJSON Path where
   parseJSON = withObject "path" $ \o -> do

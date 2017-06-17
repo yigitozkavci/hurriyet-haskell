@@ -14,7 +14,7 @@ data Writer = Writer
   , files       :: [File]
   , path        :: String
   , url         :: String
-  } deriving (Generic, Show)
+  } deriving (Generic, Show, Eq)
 
 instance FromJSON Writer where
   parseJSON = withObject "writer" $ \o -> do

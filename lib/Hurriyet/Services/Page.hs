@@ -14,7 +14,7 @@ data Page = Page
      Currently pages endpoint does not respond.
   -}
   , url :: String
-  } deriving (Generic, Show)
+  } deriving (Generic, Show, Eq)
 
 instance FromJSON Page where
   parseJSON = withObject "page" $ \o -> do

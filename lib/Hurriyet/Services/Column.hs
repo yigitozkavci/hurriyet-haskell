@@ -18,7 +18,7 @@ data Column = Column
   , title        :: String
   , url          :: String
   , writerId     :: String
-  } deriving (Generic, Show)
+  } deriving (Generic, Show, Eq)
 
 instance FromJSON Column where
   parseJSON = withObject "column" $ \o -> do

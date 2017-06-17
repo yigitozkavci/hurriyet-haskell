@@ -7,7 +7,7 @@ import GHC.Generics
 import Hurriyet.Services.File
 
 data Article = Article
-  { _id          :: String
+  { id'          :: String
   , contentType  :: String
   , createdDate  :: String
   , description  :: String
@@ -20,11 +20,11 @@ data Article = Article
   , startDate    :: String
   , title        :: String
   , url          :: String
-  } deriving (Generic, Show)
+  } deriving (Generic, Show, Eq)
 
 instance FromJSON Article where
   parseJSON = withObject "article" $ \o -> do
-    _id          <- o .: "Id"
+    id'          <- o .: "Id"
     contentType  <- o .: "ContentType"
     createdDate  <- o .: "CreatedDate"
     description  <- o .: "Description"
