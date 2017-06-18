@@ -109,10 +109,7 @@ main = hspec $ do
     it "saves the api key" $
       H.apiKey testClient `shouldBe` testApiKey
     it "reads" $ do
-      _ <- H.withClient testClient $ do
-        articles <- H.getArticles
-        _article <- H.getArticle "204201"
-        return articles
+      _ <- H.withClient testClient H.getArticles
       return ()  
   describe "resources" $
     forM_ serviceTestMapping $ \resource ->
