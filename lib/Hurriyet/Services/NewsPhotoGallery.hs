@@ -12,7 +12,7 @@ data NewsPhotoGallery = NewsPhotoGallery
   , createdDate  :: String
   , description  :: String
   , files        :: [File]
-  , modifiedDate :: String
+  , modifiedDate :: Maybe String
   , path         :: String
   , startDate    :: String
   , title        :: String
@@ -26,7 +26,7 @@ instance FromJSON NewsPhotoGallery where
     createdDate  <- o .: "CreatedDate"
     description  <- o .: "Description"
     files        <- o .: "Files"
-    modifiedDate <- o .: "ModifiedDate"
+    modifiedDate <- o .:? "ModifiedDate"
     path         <- o .: "Path"
     startDate    <- o .: "StartDate"
     title        <- o .: "Title"
