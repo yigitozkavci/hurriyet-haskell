@@ -12,6 +12,8 @@ import           Data.Either             (isLeft)
 import           Data.Monoid             ((<>))
 import           Control.Monad           (when)
 import           Data.Proxy              (Proxy(..))
+import           Data.Foldable           (forM_)
+import qualified Data.Map.Strict         as Map
 --------------------------------------------------------------------------------
 import qualified Hurriyet                as H
 import qualified Hurriyet.Services       as HS
@@ -51,47 +53,41 @@ stubbedResponse op =
   in
     pack <$> readFile filepath 
 
+serviceTestMapping ::
+  [
+    ( String                       -- Name of the resource test. Will be used as description
+    , ( (H.Operation, String)      -- Endpoint check for list operation
+      , (H.Operation, String)      -- Endpoint check for show operation
+      , (Operation, Text -> IO ()) -- List operation and its response decoder
+      , (Operation, Text -> IO ()) -- Show operation and its response decoder
+      )
+    )
+  ]
+serviceTestMapping =
+  [ ("article", ( (H.List H.ArticleResource, "articles")
+                , (H.Show H.ArticleResource "3", "articles/3")
+                , (List H.ArticleResource, testDecoding (Proxy :: Proxy [HS.Article]))
+                , (Show H.ArticleResource, testDecoding (Proxy :: Proxy HS.Article))
+                )
+    )
+  ]
+
 main :: IO ()
 main = hspec $ do
   describe "client" $
     it "saves the api key" $
       H.apiKey testClient `shouldBe` testApiKey
-  describe "resources" $ do
-    context "article" $ do
-      it "has the right endpoint" $
-        show H.ArticleResource `shouldBe` "articles"
-      context "list" $ do
-        it ("generates " <> "url" <> " right") $ do
-          let op = H.List H.ArticleResource
-          H.getUrl op `shouldBe` H.baseUrl ++ "articles"
-        it "parses response" $ do
-          resp <- stubbedResponse (List H.ArticleResource)
-          testDecoding (Proxy :: Proxy [HS.Article]) resp
-          return ()
-      context "show" $ do
-        it "generates url right" $ do
-          let op = H.Show H.ArticleResource "2"
-          H.getUrl op `shouldBe` H.baseUrl ++ "articles/2"
-        it "parses response" $ do
-          resp <- stubbedResponse (Show H.ArticleResource)
-          testDecoding (Proxy :: Proxy HS.Article) resp
-          return ()
-    context "column" $ do
-      it "has the right endpoint" $
-        show H.ColumnResource `shouldBe` "columns"
-      context "list" $ do
-        it "generates url right" $ do
-          let op = H.List H.ColumnResource
-          H.getUrl op `shouldBe` H.baseUrl ++ "columns"
-        it "parses response" $ do
-          resp <- stubbedResponse (List H.ColumnResource)
-          testDecoding (Proxy :: Proxy [HS.Column]) resp
-          return ()
-      context "show" $ do
-        it "generates url right" $ do
-          let op = H.Show H.ColumnResource "3"
-          H.getUrl op `shouldBe` H.baseUrl ++ "columns/3"
-        it "parses response" $ do
-          resp <- stubbedResponse (Show H.ColumnResource)
-          testDecoding (Proxy :: Proxy HS.Column) resp
-          return ()
+  describe "resources" $
+    forM_ serviceTestMapping $ \resource ->
+      context (fst resource) $ do
+        let (listUrl, showUrl, (listOperation, listDecodeTester), (showOperation, showDecodeTester)) = snd resource
+        context "list" $
+          it "has the right endpoint" $
+            H.getUrl (fst listUrl) `shouldBe` H.baseUrl ++ snd listUrl 
+        it "parses response" $
+          listDecodeTester =<< stubbedResponse listOperation
+        context "show" $
+          it "has the right endpoint" $
+            H.getUrl (fst showUrl) `shouldBe` H.baseUrl ++ snd showUrl 
+        it "parses response" $
+          showDecodeTester =<< stubbedResponse showOperation
