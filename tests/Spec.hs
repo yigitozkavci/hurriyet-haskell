@@ -1,7 +1,5 @@
 {-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE AllowAmbiguousTypes #-}
 
 module Main where
 --------------------------------------------------------------------------------
@@ -13,6 +11,7 @@ import           Data.Text.Lazy          (Text, pack)
 import           Data.Either             (isLeft)
 import           Data.Monoid             ((<>))
 import           Control.Monad           (when)
+import           Data.Proxy              (Proxy(..))
 --------------------------------------------------------------------------------
 import qualified Hurriyet                as H
 import qualified Hurriyet.Services       as HS
@@ -27,8 +26,8 @@ testClient = H.getClient testApiKey
 {- Beware: anyone using this function should annotate return
  - value, since we are doing json decoding.
  -}
-testDecoding :: forall a. (Show a, FromJSON a) => Text -> IO ()
-testDecoding str = do
+testDecoding :: forall proxy a. (Show a, FromJSON a) => proxy a -> Text -> IO ()
+testDecoding _ str = do
   let result = eitherDecode (encodeUtf8 str) :: Either String a
   when (isLeft result) $
     expectationFailure $ "Could not decode service: " <> fromLeft result
@@ -67,7 +66,7 @@ main = hspec $ do
           H.getUrl op `shouldBe` H.baseUrl ++ "articles"
         it "parses response" $ do
           resp <- stubbedResponse (List H.ArticleResource)
-          testDecoding @[HS.Article] resp
+          testDecoding (Proxy :: Proxy [HS.Article]) resp
           return ()
       context "show" $ do
         it "generates url right" $ do
@@ -75,7 +74,7 @@ main = hspec $ do
           H.getUrl op `shouldBe` H.baseUrl ++ "articles/2"
         it "parses response" $ do
           resp <- stubbedResponse (Show H.ArticleResource)
-          testDecoding @HS.Article resp
+          testDecoding (Proxy :: Proxy HS.Article) resp
           return ()
     context "column" $ do
       it "has the right endpoint" $
@@ -86,7 +85,7 @@ main = hspec $ do
           H.getUrl op `shouldBe` H.baseUrl ++ "columns"
         it "parses response" $ do
           resp <- stubbedResponse (List H.ColumnResource)
-          testDecoding @[HS.Column] resp
+          testDecoding (Proxy :: Proxy [HS.Column]) resp
           return ()
       context "show" $ do
         it "generates url right" $ do
@@ -94,5 +93,5 @@ main = hspec $ do
           H.getUrl op `shouldBe` H.baseUrl ++ "columns/3"
         it "parses response" $ do
           resp <- stubbedResponse (Show H.ColumnResource)
-          testDecoding @HS.Column resp
+          testDecoding (Proxy :: Proxy HS.Column) resp
           return ()
