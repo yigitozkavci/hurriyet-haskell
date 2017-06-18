@@ -25,7 +25,6 @@ main = do
     Left  err      -> print err
     Right articles -> print articles
 ```
-As you might already have noticed, `getArticles` returns a `Either` monad. `Left` contains the error, if there is any, and `Right` contains the data.
 
 ## Get the metadata of the first file of the first article
 ```haskell
