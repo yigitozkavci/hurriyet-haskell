@@ -105,9 +105,15 @@ serviceTestMapping =
 
 main :: IO ()
 main = hspec $ do
-  describe "client" $
+  describe "client" $ do
     it "saves the api key" $
       H.apiKey testClient `shouldBe` testApiKey
+    it "reads" $ do
+      _ <- H.withClient testClient $ do
+        articles <- H.getArticles
+        _article <- H.getArticle "204201"
+        return articles
+      return ()  
   describe "resources" $
     forM_ serviceTestMapping $ \resource ->
       context (fst resource) $ do
@@ -122,3 +128,4 @@ main = hspec $ do
             H.getUrl (fst showUrl) `shouldBe` H.baseUrl ++ snd showUrl 
         it "parses response" $
           showDecodeTester =<< stubbedResponse showOperation
+  

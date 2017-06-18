@@ -24,7 +24,7 @@ library
                     http-client,
                     http-client-tls,
                     text,
-                    here >= 1.2.11
+                    mtl
   exposed-modules:  Hurriyet,
                     Hurriyet.Services,
                     Hurriyet.Services.Article,

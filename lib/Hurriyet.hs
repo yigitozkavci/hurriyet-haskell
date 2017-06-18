@@ -20,6 +20,7 @@ import Data.ByteString.Internal as I
 import Data.ByteString.Char8 as C
 import Hurriyet.Services
 import Data.Aeson (decode, eitherDecode)
+import Control.Monad.Reader
 
 
 {- Planned client usage:
@@ -101,86 +102,91 @@ fetchResource client operation = do
   response <- httpLbs request manager
   return $ responseBody response
 
+type ServiceResponse a = Reader Client (IO (Either String a))
+
 {-| Get a single page
 -}
-getPage :: Client -> Id -> IO (Either String Page)
-getPage client id =
-  fetchResource client (Show PageResource id) >>= \str ->
-    return $ eitherDecode str
+getPage :: Id -> ServiceResponse Page
+getPage id = do
+  client <- ask
+  return $ eitherDecode <$> fetchResource client (Show PageResource id)
 
 {-| Get all pages
 -}
-getPages :: Client -> IO (Either String [Page])
-getPages client =
-  fetchResource client (List PageResource) >>= \str ->
-    return $ eitherDecode str
+getPages :: ServiceResponse [Page]
+getPages = do
+  client <- ask
+  return $ eitherDecode <$> fetchResource client (List PageResource)
 
 {-| Get a single news photo gallery
 -}
-getNewsPhotoGallery :: Client -> Id -> IO (Either String NewsPhotoGallery)
-getNewsPhotoGallery client id =
-  fetchResource client (Show NewsPhotoGalleryResource id) >>= \str ->
-    return $ eitherDecode str
+getNewsPhotoGallery :: Id -> ServiceResponse NewsPhotoGallery
+getNewsPhotoGallery id = do
+  client <- ask
+  return $ eitherDecode <$> fetchResource client (Show NewsPhotoGalleryResource id)
 
 {-| Get all news photo galleries
 -}
-getNewsPhotoGalleries :: Client -> IO (Either String [NewsPhotoGallery])
-getNewsPhotoGalleries client =
-  fetchResource client (List NewsPhotoGalleryResource) >>= \str ->
-    return $ eitherDecode str
+getNewsPhotoGalleries :: ServiceResponse [NewsPhotoGallery]
+getNewsPhotoGalleries = do
+  client <- ask
+  return $ eitherDecode <$> fetchResource client (List NewsPhotoGalleryResource)
 
 {-| Get a single column
 -}
-getColumn :: Client -> Id -> IO (Either String Column)
-getColumn client id =
-  fetchResource client (Show ColumnResource id) >>= \str ->
-    return $ eitherDecode str
+getColumn :: Id -> ServiceResponse Column
+getColumn id = do
+  client <- ask
+  return $ eitherDecode <$> fetchResource client (Show ColumnResource id)
 
 {-| Get all columns
 -}
-getColumns :: Client -> IO (Either String [Column])
-getColumns client =
-  fetchResource client (List ColumnResource) >>= \str ->
-    return $ eitherDecode str
+getColumns :: ServiceResponse [Column]
+getColumns = do
+  client <- ask
+  return $ eitherDecode <$> fetchResource client (List ColumnResource)
 
 {-| Get a single path
 -}
-getPath :: Client -> Id -> IO (Either String Path)
-getPath client id =
-  fetchResource client (Show PathResource id) >>= \str ->
-    return $ eitherDecode str
+getPath :: Id -> ServiceResponse Path
+getPath id = do
+  client <- ask
+  return $ eitherDecode <$> fetchResource client (Show PathResource id)
 
 {-| Get all paths
 -}
-getPaths :: Client -> IO (Either String [Path])
-getPaths client =
-  fetchResource client (List PathResource) >>= \str ->
-    return $ eitherDecode str
+getPaths :: ServiceResponse [Path]
+getPaths = do
+  client <- ask
+  return $ eitherDecode <$> fetchResource client (List PathResource)
 
 {-| Get a single writer
 -}
-getWriter :: Client -> Id -> IO (Either String Writer)
-getWriter client id =
-  fetchResource client (Show WriterResource id) >>= \str ->
-    return $ eitherDecode str
+getWriter :: Id -> ServiceResponse Writer
+getWriter id = do
+  client <- ask
+  return $ eitherDecode <$> fetchResource client (Show WriterResource id)
 
 {-| Get all writers
 -}
-getWriters :: Client -> IO (Either String [Writer])
-getWriters client =
-  fetchResource client (List WriterResource) >>= \str ->
-    return $ eitherDecode str
+getWriters :: ServiceResponse [Writer]
+getWriters = do
+  client <- ask
+  return $ eitherDecode <$> fetchResource client (List WriterResource)
 
 {-| Get single article
 -}
-getArticle :: Client -> Id -> IO (Either String Article)
-getArticle client id =
-  fetchResource client (Show ArticleResource id) >>= \str ->
-    return $ eitherDecode str
+getArticle :: Id -> ServiceResponse Article
+getArticle id = do
+  client <- ask
+  return $ eitherDecode <$> fetchResource client (Show ArticleResource id)
 
 {-| Get all articles
 -}
-getArticles :: Client -> IO (Either String [Article])
-getArticles client =
-  fetchResource client (List ArticleResource) >>= \str ->
-    return $ eitherDecode str
+getArticles :: ServiceResponse [Article]
+getArticles = do
+  client <- ask
+  return $ eitherDecode <$> fetchResource client (List ArticleResource)
+
+withClient :: Client -> Reader Client a -> a
+withClient client reader = runReader reader client
