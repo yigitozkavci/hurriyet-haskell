@@ -5,6 +5,7 @@ module Hurriyet.Services.Column where
 import Data.Aeson
 import GHC.Generics
 import Hurriyet.Services.File
+import Hurriyet.Services.Service
 
 data Column = Column
   { _id          :: String
@@ -36,3 +37,6 @@ instance FromJSON Column where
     return Column {..}
 
 instance ToJSON Column
+
+instance Service Column where
+  endpoint _ = "columns"

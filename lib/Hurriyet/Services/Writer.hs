@@ -5,6 +5,7 @@ module Hurriyet.Services.Writer where
 import Data.Aeson
 import GHC.Generics
 import Hurriyet.Services.File
+import Hurriyet.Services.Service
 
 data Writer = Writer
   { _id         :: String
@@ -28,3 +29,6 @@ instance FromJSON Writer where
     return Writer {..}
 
 instance ToJSON Writer
+
+instance Service Writer where
+  endpoint _ = "writers"

@@ -4,6 +4,7 @@ module Hurriyet.Services.Path where
 
 import Data.Aeson
 import GHC.Generics
+import Hurriyet.Services.Service
 
 data Path = Path
   { _id          :: String
@@ -19,3 +20,6 @@ instance FromJSON Path where
     return Path {..}
 
 instance ToJSON Path
+
+instance Service Path where
+  endpoint _ = "paths"

@@ -5,6 +5,7 @@ module Hurriyet.Services.NewsPhotoGallery where
 import Data.Aeson
 import GHC.Generics
 import Hurriyet.Services.File
+import Hurriyet.Services.Service
 
 data NewsPhotoGallery = NewsPhotoGallery
   { _id          :: String
@@ -34,3 +35,6 @@ instance FromJSON NewsPhotoGallery where
     return NewsPhotoGallery {..}
 
 instance ToJSON NewsPhotoGallery
+
+instance Service NewsPhotoGallery where
+  endpoint _ = "newsphotogalleries"

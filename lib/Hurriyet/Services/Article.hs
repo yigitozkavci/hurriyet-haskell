@@ -5,6 +5,7 @@ module Hurriyet.Services.Article where
 import Data.Aeson
 import GHC.Generics
 import Hurriyet.Services.File
+import Hurriyet.Services.Service
 
 data Article = Article
   { id'          :: String
@@ -37,3 +38,6 @@ instance FromJSON Article where
     return Article {..}
 
 instance ToJSON Article
+
+instance Service Article where
+  endpoint _ = "articles"

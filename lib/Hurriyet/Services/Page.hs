@@ -4,6 +4,7 @@ module Hurriyet.Services.Page where
 
 import Data.Aeson
 import GHC.Generics
+import Hurriyet.Services.Service
 
 {- TODO: Add relatedNews -}
 data Page = Page
@@ -23,3 +24,6 @@ instance FromJSON Page where
     title        <- o .: "Title"
     url          <- o .: "Url"
     return Page {..}
+
+instance Service Page where
+  endpoint _ = "pages"
