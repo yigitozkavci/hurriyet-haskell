@@ -1,0 +1,42 @@
+[
+    {
+        "Id": "5809bbd30ad69709f47b14ad",
+        "Fullname": "Elvan Yarma",
+        "ContentType": "PersonContainer",
+        "CreatedDate": "2016-10-21T06:55:15.817Z",
+        "Files": [],
+        "Path": "/yazarlar/",
+        "Url": "http://www.hurriyet.com.tr"
+    },
+    {
+        "Id": "5809bbd20ad69709f47b1485",
+        "Fullname": "Adil Demirçubuk",
+        "ContentType": "PersonContainer",
+        "CreatedDate": "2016-10-21T06:55:14.645Z",
+        "Files": [],
+        "Path": "/yazarlar/",
+        "Url": "http://www.hurriyet.com.tr"
+    },
+    {
+        "Id": "570167e867b0a90bdc503452",
+        "Fullname": "Abdulkadir SELVİ",
+        "ContentType": "PersonContainer",
+        "CreatedDate": "2016-04-03T18:58:48.715Z",
+        "Files": [
+            {
+                "FileUrl": "http://i.hurimg.com/i/hurriyet/98/620x0/5701682267b0a90bdc503454.jpg",
+                "Metadata": {
+                    "Title": ""
+                }
+            },
+            {
+                "FileUrl": "http://i.hurimg.com/i/hurriyet/98/620x0/5701682267b0a90bdc503456.jpg",
+                "Metadata": {
+                    "Title": ""
+                }
+            }
+        ],
+        "Path": "/yazarlar/",
+        "Url": "http://www.hurriyet.com.tr/yazarlar/abdulkadir-selvi/"
+    }
+]

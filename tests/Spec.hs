@@ -13,7 +13,6 @@ import           Data.Monoid             ((<>))
 import           Control.Monad           (when)
 import           Data.Proxy              (Proxy(..))
 import           Data.Foldable           (forM_)
-import qualified Data.Map.Strict         as Map
 --------------------------------------------------------------------------------
 import qualified Hurriyet                as H
 import qualified Hurriyet.Services       as HS
@@ -63,12 +62,44 @@ serviceTestMapping ::
       )
     )
   ]
+
 serviceTestMapping =
   [ ("article", ( (H.List H.ArticleResource, "articles")
                 , (H.Show H.ArticleResource "3", "articles/3")
                 , (List H.ArticleResource, testDecoding (Proxy :: Proxy [HS.Article]))
                 , (Show H.ArticleResource, testDecoding (Proxy :: Proxy HS.Article))
                 )
+    )
+  , ("column", ( (H.List H.ColumnResource, "columns")
+                , (H.Show H.ColumnResource "3", "columns/3")
+                , (List H.ColumnResource, testDecoding (Proxy :: Proxy [HS.Column]))
+                , (Show H.ColumnResource, testDecoding (Proxy :: Proxy HS.Column))
+                )
+    )
+  , ("news_photo_gallery", ( (H.List H.NewsPhotoGalleryResource, "newsphotogalleries")
+                           , (H.Show H.NewsPhotoGalleryResource "3", "newsphotogalleries/3")
+                           , (List H.NewsPhotoGalleryResource, testDecoding (Proxy :: Proxy [HS.NewsPhotoGallery]))
+                           , (Show H.NewsPhotoGalleryResource, testDecoding (Proxy :: Proxy HS.NewsPhotoGallery))
+                           )
+    )
+  -- Pages endpoint is inaccessible at the moment of testing
+  -- , ("page", ( (H.List H.PageResource, "pages")
+  --            , (H.Show H.PageResource "3", "pages/3")
+  --            , (List H.PageResource, testDecoding (Proxy :: Proxy [HS.Page]))
+  --            , (Show H.PageResource, testDecoding (Proxy :: Proxy HS.Page))
+  --            )
+  --   )
+  , ("path", ( (H.List H.PathResource, "paths")
+             , (H.Show H.PathResource "3", "paths/3")
+             , (List H.PathResource, testDecoding (Proxy :: Proxy [HS.Path]))
+             , (Show H.PathResource, testDecoding (Proxy :: Proxy HS.Path))
+             )
+    )
+  , ("writer", ( (H.List H.WriterResource, "writers")
+             , (H.Show H.WriterResource "3", "writers/3")
+             , (List H.WriterResource, testDecoding (Proxy :: Proxy [HS.Writer]))
+             , (Show H.WriterResource, testDecoding (Proxy :: Proxy HS.Writer))
+             )
     )
   ]
 
