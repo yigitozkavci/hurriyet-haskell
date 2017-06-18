@@ -47,7 +47,7 @@ Note that in order to use any accessor method for any of the services, you shoul
 
 # Contributing
 This library is currently maintained by me, and appreciate any contributions even if they just update the docs.
-There are beginner-friendly issues in [here](https://github.com/yigitozkavci/hurriyet-haskell), and I encourage you to see if you can contribute in any way.
+There are beginner-friendly issues in [here](https://github.com/yigitozkavci/hurriyet-haskell/issues), and I encourage you to see if you can contribute in any way.
 
 # LICENSE
 [MIT License](LICENSE)
